@@ -1,4 +1,5 @@
 var express = require("express");
+var path = require("path"); // path is not required for the functioning of this file. It is only required by the homework specifiations.
 
 var app = express();
 var PORT = process.env.PORT || 8080;

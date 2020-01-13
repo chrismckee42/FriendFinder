@@ -1,21 +1,34 @@
+const friends = [{
+    "name": "Ahmed",
+    "photo": "https://media.licdn.com/mpr/mpr/shrinknp_400_400/p/6/005/064/1bd/3435aa3.jpg",
+    "scores": [5, 1, 4, 4, 5, 1, 2, 5, 4, 1]
+}]
+
 module.exports = function (app) {
-    app.get("/api/characters", function (req, res) {
-        return res.json(characters);
+    app.get("/api/friends", function (req, res) {
+        return res.json(friends);
     });
 
-    app.post("/api/characters", function (req, res) {
-        // req.body hosts is equal to the JSON post sent from the user
-        // This works because of our body parsing middleware
-        var newCharacter = req.body;
+    app.post("/api/friends", function (req, res) {
+        var newFriend = req.body;
 
-        // Using a RegEx Pattern to remove spaces from newCharacter
-        // You can read more about RegEx Patterns later https://www.regexbuddy.com/regex.html
-        newCharacter.routeName = newCharacter.name.replace(/\s+/g, "").toLowerCase();
+        console.log(newFriend);
+        //one greater than the theoritical maximum
+        var diff = 41;
+        var match = {};
+        friends.forEach(fElement => {
+            let newDiff = 0
+            fElement.scores.forEach((score, i) => {
+                newDiff += Math.abs(score - newFriend.scores[i])
+            })
+            console.log(newDiff)
+            if (newDiff < diff) {
+                match = fElement;
+                diff = newDiff;
+            }
+        });
+        friends.push(newFriend);
 
-        console.log(newCharacter);
-
-        characters.push(newCharacter);
-
-        res.json(newCharacter);
+        res.json(match);
     });
 };

@@ -8,4 +8,9 @@ module.exports = function (app) {
     app.get("/survey", function (req, res) {
         res.sendFile(path.join(__dirname, "../public/survey.html"));
     });
+
+    //catch all
+    app.get("/:anythingElse", function (req, res) {
+        res.sendFile(path.join(__dirname, "../public/home.html"));
+    });
 }
